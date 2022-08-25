@@ -72,7 +72,7 @@ routerCarrito.post('/', async(req, res) => {
     const objProducto = req.body
     console.log(objProducto)
     const contenedor = new Contenedor('carrito.json');
-    let producto = await contenedor.save(objProducto)
+    let producto = await carrito.save(objProducto)
     res.send({
         message: 'Producto guardado',
         objProducto
@@ -82,7 +82,7 @@ routerCarrito.post('/', async(req, res) => {
 routerCarrito.delete('/:id', async(req, res) => {
     const { id } = req.params
     const contenedor = new Contenedor('carrito.json')
-    let producto = await contenedor.deleteById(parseInt(id))
+    let producto = await carrito.deleteById(parseInt(id))
     res.send({
         message: 'Producto eliminado',
         id
@@ -92,7 +92,7 @@ routerCarrito.delete('/:id', async(req, res) => {
 routerCarrito.delete('/:id/producto/:id_prod', async(req, res) => {
     const { id, id_prod } = req.params
     const contenedor = new Contenedor('carrito.json')
-    let producto = await contenedor.deleteById(parseInt(id), parseInt(id_prod))
+    let producto = await carrito.deleteById(parseInt(id), parseInt(id_prod))
     res.send({
         message: 'Producto eliminado',
         id
@@ -102,14 +102,14 @@ routerCarrito.delete('/:id/producto/:id_prod', async(req, res) => {
 routerCarrito.get('/:id', async(req, res) => {
     const id = req.params.id
     const contenedor = new Contenedor('carrito.json');
-    let productoId = await contenedor.getById(id)
+    let productoId = await carrito.getById(id)   
     res.send(productoId)
 } )
 
 routerCarrito.get('/:id/productos', async(req, res) => {
     const id = req.params.id
     const contenedor = new Contenedor('carrito.json');
-    let productoId = await contenedor.getById(id)
+    let productoId = await carrito.getById(id)
     res.send(productoId)
 } )
 
