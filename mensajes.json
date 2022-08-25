@@ -1,0 +1,32 @@
+[
+    {
+      "id": 1,
+      "mail": "gato@gmail.com",
+      "mensaje": "hola",
+      "fecha": "1:57:42 AM"
+    },
+    {
+      "id": 2,
+      "mail": "oscar@gmail.com",
+      "mensaje": "buen dia",
+      "fecha": "1:57:43 AM"
+    },
+    {
+      "id": 3,
+      "mail": "gato@gmail.com",
+      "mensaje": "todo bien? ",
+      "fecha": "1:57:44 AM"
+    },
+    {
+      "id": 4,
+      "mail": "gatototo@gmail.com",
+      "mensaje": "que hacen?",
+      "fecha": "0:57:00"
+    },
+    {
+      "id": 5,
+      "mail": "gato@gmail.com",
+      "mensaje": "nada",
+      "fecha": "1:04:33"
+    }
+  ]
