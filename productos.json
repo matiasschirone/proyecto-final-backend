@@ -1,38 +1,20 @@
 [
   {
-    "nombre": "jugo",
-    "precio": 50,
-    "categoria": "bebida",
-    "id": 1
-  },
-  {
-    "nombre": "cafe",
-    "precio": 80,
-    "categoria": "bebida",
-    "id": 2
-  },
-  {
-    "nombre": "galletitas",
-    "precio": 120,
-    "categoria": "comestible",
-    "id": 3
-  },
-  {
-    "nombre": "agua",
+    "id": 1,
+    "nombre": "samsungj7",
+    "description": "samsung j7",
+    "codigo": "samsungj7",
+    "foto": "https://www.samsung.com/us/mobile/galaxy-s7/",
     "precio": "100",
-    "categoria": "bebida",
-    "id": 4
+    "stock": "10"
   },
   {
-    "nombre": "chocolate",
-    "precio": "350",
-    "categoria": "comida",
-    "id": 5
-  },
-  {
-    "nombre": "arroz",
-    "precio": "350",
-    "categoria": "comida",
-    "id": 6
+    "id": 2,
+    "nombre": "motorolagalaxy",
+    "description": "motorola galaxy",
+    "codigo": "motorolagalaxy",
+    "foto": "https://www.motorola.com/us/moto-e-4g/",
+    "precio": "200",
+    "stock": "20"
   }
 ]

@@ -1,95 +1,131 @@
+const { Router } = require('express');
 const express = require("express");
-const handlebars = require("express-handlebars");
-
+const routerProductos = Router();
+const routerCarrito = Router();
 const { Contenedor } = require("./contenedor");
-const { Server: HttpServer } = require("http");
-const { Server: IoServer } = require("socket.io");
-
+const { ContenedorCarrito } = require("./contenedorCarrito");
 const app = express();
-const httpServer = new HttpServer(app);
-const io = new IoServer(httpServer);
 
+
+app.use(express.json());
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
-const port = process.env.PORT || 8080;
+
 
 const contenedor = new Contenedor("./productos.json");
-const comentarios = new Contenedor("./mensajes.json");
+const carrito = new ContenedorCarrito("./carrito.json");
 
-io.on("connection", async socket => {
-	let mensajesChat = await comentarios.getAll();
-	console.log("Se contectó un usuario");
+const administrador = true;
 
-	const mensaje = {
-		mensaje: "ok",
-		mensajesChat
-	};
+routerProductos.get('/', async(req, res) => {
+    const contenedor = new Contenedor('productos.json');
+    let productos = await contenedor.getAll()
+    res.send(productos)
+} )
 
-	socket.emit("mensaje-servidor", mensaje);
+routerProductos.get('/:id', async(req, res) => {
+    const id = req.params.id
+    const contenedor = new Contenedor('productos.json');
+    let productoId = await contenedor.getById(id)
+    res.send(productoId)
+} )
 
-	socket.on("mensaje-nuevo", async (msg, cb) => {
-		mensajesChat.push(msg);
-		const mensaje = {
-			mensaje: "mensaje nuevo",
-			mensajesChat
-		};
+routerProductos.post('/', async(req, res) => {
+    if (administrador) {
+        const contenedor = new Contenedor('productos.json');
+        let producto = await contenedor.save(req.body)
+        res.send(producto)
+    } else {
+        res.send({ error: "No tienes permisos para agregar productos" })
+    }
+} )
 
-		const id = new Date().getTime();
-		io.sockets.emit("mensaje-servidor", mensaje);
-		cb(id);
-		await comentarios.save({
-			id,
-			mail: msg.mail,
-			mensaje: msg.mensaje,
-			fecha: msg.hora
-		});
-	});
-});
+routerProductos.put('/:id', async(req, res) => {
+    if (administrador) {
+        const contenedor = new Contenedor('productos.json');
+        let producto = await contenedor.updateById(req.params.id, req.body)
+        res.send(producto)
+    } else {
+        res.send({ error: "No tienes permisos para actualizar productos" })
+    }
+} )
 
-app.set("view engine", "hbs");
-app.set("views", "./views/layouts");
-
-app.use(express.static("public"));
-
-app.engine(
-	"hbs",
-	handlebars.engine({
-		extname: ".hbs",
-		defaultLayout: "",
-		layoutsDir: "",
-		partialsDir: __dirname + "/views/partials"
-	})
-);
-
-app.get("/", async (req, res) => {
-	const producto = await contenedor.getAll();
-	res.render("index", {
-		list: producto,
-		listExist: true,
-		producto: true
-	});
-});
-
-app.get("/", async (req, res) => {
-	const producto = await contenedor.getAll();
-	res.render("productos", {
-		titulo: "Útiles escolares 2022",
-		list: producto,
-		listExist: true,
-		producto: true
-	});
-});
+routerProductos.delete('/:id', async(req, res) => {
+    if (administrador) {
+        const contenedor = new Contenedor('productos.json');
+        let producto = await contenedor.deleteById(req.params.id)
+        res.send(producto)
+    } else {
+        res.send({ error: "No tienes permisos para eliminar productos" })
+    }
+} )
 
 
-app.post('/productos', async(req, res) => {
+routerProductos.get('*', (req, res) => {
+    res.send({
+        error: -2,
+        description: 'Ruta no encontrada'
+    })
+} )
+
+routerCarrito.post('/', async(req, res) => {
     const objProducto = req.body
     console.log(objProducto)
-    const contenedor = new Contenedor('productos.json')
+    const contenedor = new Contenedor('carrito.json');
     let producto = await contenedor.save(objProducto)
-    const listExist = true
-    res.redirect('/');
-} );
+    res.send({
+        message: 'Producto guardado',
+        objProducto
+    })
+} )
 
-httpServer.listen(port, err => {
-	if (err) throw new Error(`Error al iniciar el servidor: ${err}`);
-	console.log(`Server is running on port ${port}`);
+routerCarrito.delete('/:id', async(req, res) => {
+    const { id } = req.params
+    const contenedor = new Contenedor('carrito.json')
+    let producto = await contenedor.deleteById(parseInt(id))
+    res.send({
+        message: 'Producto eliminado',
+        id
+    })
+} )
+
+routerCarrito.delete('/:id/producto/:id_prod', async(req, res) => {
+    const { id, id_prod } = req.params
+    const contenedor = new Contenedor('carrito.json')
+    let producto = await contenedor.deleteById(parseInt(id), parseInt(id_prod))
+    res.send({
+        message: 'Producto eliminado',
+        id
+    })
+} )
+
+routerCarrito.get('/:id', async(req, res) => {
+    const id = req.params.id
+    const contenedor = new Contenedor('carrito.json');
+    let productoId = await contenedor.getById(id)
+    res.send(productoId)
+} )
+
+routerCarrito.get('/:id/productos', async(req, res) => {
+    const id = req.params.id
+    const contenedor = new Contenedor('carrito.json');
+    let productoId = await contenedor.getById(id)
+    res.send(productoId)
+} )
+
+routerCarrito.get('*', (req, res) => {
+    res.send({
+        error: -2,
+        description: 'Ruta no encontrada'
+    })
+} )
+
+
+app.use('/api/productos', routerProductos)
+app.use('/api/carrito', routerCarrito)
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, err => {
+	if (err) throw err;
+	console.log(`Server running on port ${PORT}`);
 });
