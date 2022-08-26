@@ -105,22 +105,21 @@ class ContenedorCarrito {
 
 	async deleteProductFromCart(idCart, idProduct) {
 		try {
-			let dataArch = await this.#readFileFunction(this.ruta);
-			let carritoById = dataArch.find((carrito) => carrito.id == idCart);
-			let productToDelete = carritoById.producto.find((product) => product.id == idProduct);
-			if (productToDelete) {
-				carritoById.productos = carritoById.productos.filter(
-					(product) => product.id != idProduct
-				);
-				await fs.promises.writeFile(this.ruta, JSON.stringify(carritoById, null, 2));
-				return productToDelete;
-			} else {
-				return { error: 'No existe el producto' };
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	}
+            let dataArch = await this.#readFileFunction(this.ruta)
+            let prodFilter = dataArch.filter(producto => producto.id == idCart)
+            console.log(prodFilter)
+            if (prodFilter) {
+                prodFilter[0].productos = prodFilter[0].productos.filter(producto => producto.id != idProduct)
+                await fs.promises.writeFile(this.ruta, JSON.stringify(prodFilter, null, 2))
+                return {msg: 'producto eliminado'}
+            } else {
+                return {error: 'no existe el producto'}
+            }
+
+            } catch (error) {       
+            console.log(error)
+        }
+    }       
 
 
 	async getProductsById(id){
