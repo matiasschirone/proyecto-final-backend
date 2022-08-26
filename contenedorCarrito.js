@@ -89,51 +89,51 @@ class ContenedorCarrito {
 		try {
 			const carritoById = await this.getById(parseInt(idCart));
 			let timestamp = Date.now();
-			if (carritoById.productos.length) {
-				let productToAdd = {
-					id: carritoById.products[carritoById.productos.length - 1].id + 1,
-					timestamp,
-					...product
-				};
-				carritoById.producto.push(productToAdd);
-				await this.updateById(parseInt(idCart), carritoById);
-				let idProduct =
-					carritoById.productos[carritoById.productos.length - 1].id;
-				console.log(`El producto agregado tiene el ID: ${idProduct}`);
-				return idProduct;
-			} else {
-				let productToAdd = { id: 1, timestamp, ...product };
-				carritoById.productos.push(productToAdd);
-				await this.updateById(parseInt(idCart), carritoById);
+			let newProduct = {
+				...product,
+				timestamp: timestamp,
+			};
+			console.log(newProduct);
+			carritoById.productos.push(newProduct);
+			await fs.promises.writeFile(this.ruta, JSON.stringify(carritoById, null, 2));
+			return newProduct;
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
-				console.log(`El producto agregado tiene el ID: 1`);
-				return 1;
+
+	async deleteProductFromCart(idCart, idProduct) {
+		try {
+			let dataArch = await this.#readFileFunction(this.ruta);
+			let carritoById = dataArch.find((carrito) => carrito.id == idCart);
+			let productToDelete = carritoById.producto.find((product) => product.id == idProduct);
+			if (productToDelete) {
+				carritoById.productos = carritoById.productos.filter(
+					(product) => product.id != idProduct
+				);
+				await fs.promises.writeFile(this.ruta, JSON.stringify(carritoById, null, 2));
+				return productToDelete;
+			} else {
+				return { error: 'No existe el producto' };
 			}
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
-	async deleteProductByID(idCart, idProduct) {
+
+	async getProductsById(id){
 		try {
-			let dataArchivo = await this.readFileFunction(this.ruta);
-			let carrito = dataArchivo.find(carrito => carrito.id === idCart);
-			let producto = carrito.productos.find(
-				producto => producto.id === idProduct
-			);
-			console.log(producto);
-			if (carrito) {
-				let productosFiltrados = carrito.productos.filter(
-					producto => producto.id !== idProduct
-				);
-				carrito.productos = productosFiltrados;
-				await this.updateById(idCart, carrito);
-				console.log("Producto eliminado");
+			let dataArch = await this.#readFileFunction(this.ruta)
+			let cart = dataArch.find((cart) => cart.id == id)
+			if (cart) {
+				return cart.productos
 			} else {
-				console.log("No se encontró el Carrito");
+				return { error: 'No se encontro el carrito' }
 			}
 		} catch (error) {
-			console.log("No existe el id", error);
+			console.log(error)
 		}
 	}
 

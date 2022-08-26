@@ -16,11 +16,11 @@
     ]
   },
   {
-    "id": 3,
+    "id": 4,
     "timestamp": "2017-01-01T00:00:00.000Z",
     "producto": [
       {
-        "id": 3,
+        "id": 4,
         "timestamp": "2017-01-01T00:00:00.000Z",
         "nombre": "Producto 3",
         "descripcion": "Descripción del producto 3",
@@ -32,23 +32,19 @@
     ]
   },
   {
-    "id": 4,
+    "id": 5,
     "timestamp": "2017-01-01T00:00:00.000Z",
     "producto": [
       {
-        "id": 2,
+        "id": 4,
         "timestamp": "2017-01-01T00:00:00.000Z",
-        "nombre": "Producto 2",
-        "descripcion": "Descripción del producto 2",
-        "codigo": "P2",
+        "nombre": "Producto 3",
+        "descripcion": "Descripción del producto 3",
+        "codigo": "P3",
         "foto": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
-        "precio": 200,
-        "stock": 200
+        "precio": 300,
+        "stock": 300
       }
     ]
-  },
-  {
-    "0": "1",
-    "id": 5
   }
 ]
