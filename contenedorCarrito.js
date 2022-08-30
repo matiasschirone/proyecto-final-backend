@@ -85,24 +85,23 @@ class ContenedorCarrito {
         }
     }
 
-	async addProductToCart(idCart, objProducto) {
-        //console.log(objProducto)
-        try {
+	async addProductToCart(idCart, objProduct){
+        try{
             let dataArch = await this.#readFileFunction(this.ruta)
-            //console.log(dataArch)  
+
             let carrito = dataArch.find(carrito => carrito.id == idCart)
             console.log(carrito)
             if (carrito) {
-                carrito.productos.push(objProducto)
+                carrito.productos.push(objProduct)
                 await fs.promises.writeFile(this.ruta, JSON.stringify( dataArch, null, 2))
-                return {msg: 'producto agregado al carrito'}
+                return {msg: 'producto agregado al carrito'}    
             } else {
                 return {error: 'no existe el carrito'}
             }
         } catch (error) {
             console.log(error)
         }
-
+    
 
 		/*try {
 			const carritoById = await this.getById(parseInt(idCart));
@@ -124,10 +123,13 @@ class ContenedorCarrito {
 	async deleteProductFromCart(idCart, idProduct) {
 		try {
             let dataArch = await this.#readFileFunction(this.ruta)
+
             let prodFilter = dataArch.filter(cart => cart.id == idCart)
-            console.log(prodFilter)
+
             if (prodFilter) {
+                
                 prodFilter[0].productos = prodFilter[0].productos.filter(producto => producto.id != idProduct)
+                
                 await fs.promises.writeFile(this.ruta, JSON.stringify(prodFilter, null, 2))
                 return {msg: 'producto eliminado'}
             } else {

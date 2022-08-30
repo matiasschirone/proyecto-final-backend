@@ -1,31 +1,5 @@
 [
   {
-    "id": 1,
-    "timestamp": "2017-01-01T00:00:00.000Z",
-    "producto": [
-      {
-        "id": 1,
-        "timestamp": "2017-01-01T00:00:00.000Z",
-        "nombre": "Producto 1",
-        "descripcion": "Descripción del producto 1",
-        "codigo": "P1",
-        "foto": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
-        "precio": 100,
-        "stock": 100
-      },
-      {
-        "id": 2,
-        "timestamp": "2017-01-01T00:00:00.000Z",
-        "nombre": "Producto 2",
-        "descripcion": "Descripción del producto 2",
-        "codigo": "P2",
-        "foto": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
-        "precio": 200,
-        "stock": 200
-      }
-    ]
-  },
-  {
     "id": 4,
     "timestamp": "2017-01-01T00:00:00.000Z",
     "producto": [
@@ -66,6 +40,37 @@
         "stock": 300
       }
     ]
+  },
+  {
+    "id": 6,
+    "timestamp": "2017-01-01T00:00:00.000Z",
+    "producto": [
+      {
+        "id": 4,
+        "timestamp": "2017-01-01T00:00:00.000Z",
+        "nombre": "Producto 3",
+        "descripcion": "Descripción del producto 3",
+        "codigo": "P3",
+        "foto": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+        "precio": 300,
+        "stock": 300
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "timestamp": "",
+    "producto": [
+      {
+        "id": 4,
+        "timestamp": "2017-01-01T00:00:00.000Z",
+        "nombre": "Producto 3",
+        "descripcion": "Descripción del producto 3",
+        "codigo": "P3",
+        "foto": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+        "precio": 300,
+        "stock": 300
+      }
+    ]
   }
-  
 ]
