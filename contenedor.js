@@ -14,6 +14,7 @@ class Contenedor {
 	async save(obj) {
 		try {
 			let dataArchivo = await this.readFileFunction(this.ruta);
+			
 			if (dataArchivo.length) {
 				// [].length = 0 -> false
 				await fs.promises.writeFile(

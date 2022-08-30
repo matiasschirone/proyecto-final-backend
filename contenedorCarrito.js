@@ -101,22 +101,7 @@ class ContenedorCarrito {
         } catch (error) {
             console.log(error)
         }
-    
 
-		/*try {
-			const carritoById = await this.getById(parseInt(idCart));
-			let timestamp = Date.now();
-			let newProduct = {
-				...product,
-				timestamp: timestamp,
-			};
-			//console.log(newProduct);
-			carritoById.productos.push(newProduct);
-			await fs.promises.writeFile(this.ruta, JSON.stringify(carritoById, null, 2));
-			return newProduct;
-		} catch (error) {
-			console.log(error);
-		}*/
 	}
 
 
@@ -125,11 +110,11 @@ class ContenedorCarrito {
             let dataArch = await this.#readFileFunction(this.ruta)
 
             let prodFilter = dataArch.filter(cart => cart.id == idCart)
+            console.log("prodFilter", prodFilter)
 
             if (prodFilter) {
                 
                 prodFilter[0].productos = prodFilter[0].productos.filter(producto => producto.id != idProduct)
-                
                 await fs.promises.writeFile(this.ruta, JSON.stringify(prodFilter, null, 2))
                 return {msg: 'producto eliminado'}
             } else {

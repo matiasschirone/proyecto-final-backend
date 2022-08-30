@@ -1,0 +1,14 @@
+DELETE http://localhost:8080/api/carrito/4/productos/6 HTTP/1.1
+Content-Type: application/json
+
+{
+   "id": 4,
+   "timestamp": "2017-01-01T00:00:00.000Z",
+   "nombre": "Producto 3",
+   "descripcion": "Descripción del producto 3",
+   "codigo": "P3",
+   "foto": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+   "precio": 300,
+   "stock": 300
+}
+ 

@@ -97,11 +97,11 @@ routerCarrito.delete('/:id', async(req, res) => {
 
 
 //incorpora productos al carrito por su id
-routerCarrito.post('/:id/productos', async(req, res) => {
+routerCarrito.post('/:id/productos/:id_prod', async(req, res) => {
     const { id, id_prod } = req.params
 
     const productById = await contenedor.getById(parseInt(id_prod))
-
+    console.log("productById", productById)
     carritoById = await carrito.addProductToCart(id, productById)
 
     res.send({
@@ -112,7 +112,7 @@ routerCarrito.post('/:id/productos', async(req, res) => {
 
 
 //elimina un producto por su id de carrito y de producto
-routerCarrito.delete('/:id/producto/:id_prod', async(req, res) => {
+routerCarrito.delete('/:id/productos/:id_prod', async(req, res) => {
     
     const { id, id_prod } = req.params
 
