@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config();
 const { Router } = require('express');
 const express = require("express");
 const routerProductos = Router();
@@ -73,7 +74,7 @@ routerProductos.get('*', (req, res) => {
 //crea carrito y devuelve su id
 routerCarrito.post('/', async(req, res) => {
     const objProducto = req.body
-    console.log(objProducto)
+    console.log(req.body)
    
     let producto = await carrito.save(objProducto)
     res.send({
@@ -81,6 +82,7 @@ routerCarrito.post('/', async(req, res) => {
         objProducto
     })
 } )
+
 
 //vacia un carrito y lo elimina
 routerCarrito.delete('/:id', async(req, res) => {
@@ -146,7 +148,7 @@ routerCarrito.get('*', (req, res) => {
 app.use('/api/productos', routerProductos)
 app.use('/api/carrito', routerCarrito)
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT
 app.listen(PORT, err => {
 	if (err) throw err;
 	console.log(`Server running on port ${PORT}`);
