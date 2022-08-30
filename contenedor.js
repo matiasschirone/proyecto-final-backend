@@ -19,7 +19,7 @@ class Contenedor {
 				await fs.promises.writeFile(
 					this.ruta,
 					JSON.stringify(
-						[...dataArchivo, { ...obj, id: dataArchivo.length + 1 }],
+						[...dataArchivo, { id: dataArchivo.length + 1, timestamp: Date.now(), ...obj }],
 						null,
 						2
 					)

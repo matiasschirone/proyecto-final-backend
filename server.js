@@ -98,9 +98,10 @@ routerCarrito.delete('/:id', async(req, res) => {
 
 //incorpora productos al carrito por su id
 routerCarrito.post('/:id/productos', async(req, res) => {
-    const id = req.params.id
-    const objProducto = req.body
-    //console.log(objProducto)
+    const { id, id_prod } = req.params
+
+    const productById = await contenedor.getById(id_prod)
+
     carritoById = await carrito.addProductToCart(id, objProducto)
     res.send({
         message: 'Producto agregado al carrito',
@@ -111,10 +112,10 @@ routerCarrito.post('/:id/productos', async(req, res) => {
 
 //elimina un producto por su id de carrito y de producto
 routerCarrito.delete('/:id/producto/:id_prod', async(req, res) => {
-    const id = req.params.id
-    const id_prod = req.params.id_prod
-    console.log(req.params.id_prod)
+    const { id, id_prod } = req.params
+
     carritoById = await carrito.deleteProductFromCart(id, id_prod)
+    
     res.send({
         message: 'Producto eliminado del carrito',
         carritoById
