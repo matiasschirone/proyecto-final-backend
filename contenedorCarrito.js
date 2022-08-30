@@ -87,7 +87,7 @@ class ContenedorCarrito {
 
 	async addProductToCart(idCart, product) {
         //console.log(product)
-        try {
+        /*try {
             let dataArch = await this.#readFileFunction(this.ruta)
             //console.log(dataArch)
             const carritoById = dataArch.find((cart) => cart.id == idCart)
@@ -100,10 +100,10 @@ class ContenedorCarrito {
 
             }
             //console.log(newProduct)
-            let carrito = dataArch.find(carrito => carrito.id == idCart)
-            console.log(carrito)
-            if (carrito) {
-                carrito.productos.push(newProduct)
+            //let carrito = dataArch.find(carrito => carrito.id == idCart)
+            //console.log(carrito)
+            if (carritoById) {
+                carritoById.productos.push(newProduct)
                 await fs.promises.writeFile(this.ruta, JSON.stringify( dataArch, null, 2))
                 return {msg: 'producto agregado al carrito'}
             } else {
@@ -111,10 +111,10 @@ class ContenedorCarrito {
             }
         } catch (error) {
             console.log(error)
-        }
+        }*/
 
 
-		/*try {
+		try {
 			const carritoById = await this.getById(parseInt(idCart));
 			let timestamp = Date.now();
 			let newProduct = {
@@ -127,7 +127,7 @@ class ContenedorCarrito {
 			return newProduct;
 		} catch (error) {
 			console.log(error);
-		}*/
+		}
 	}
 
 
